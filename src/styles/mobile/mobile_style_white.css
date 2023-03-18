@@ -1,0 +1,83 @@
+body {
+    background: white;
+    color: black;
+    font-size: 48px;
+    text-decoration: none;
+}
+
+.White_PoemsFooterTitle_Link {
+    text-decoration: none;
+    color: black;
+}
+
+.White_PoemsFooterTitle_Link:visited {
+    color: black;
+    text-decoration: none;
+}
+
+.White_PoemsFooterTitle_Link:hover {
+    cursor: pointer;
+    color: #A12525;
+    text-shadow: 0 0 20px #A12525, 0 0 20px #A12525;
+}
+
+.White_PoemsFooterMenu_Line {
+    position: relative;
+    height: 4px;
+    margin-bottom: 6px;
+    background: black;
+    width: 36px;
+}
+
+
+.White_PoemsBackLink{
+    width: 155px;
+    font-size: 24px;
+    color: black;
+    margin-left: 21px;
+    float: left;
+    text-align: right;
+    text-decoration: none;
+
+    position: absolute;
+    bottom: 40px;
+}
+
+.White_PoemsForwardLink{
+    width: 155px;
+    font-size: 24px;
+    color: black;
+    margin-right: 21px;
+    float: right;
+    text-align: left;
+    text-decoration: none;
+
+    position: absolute;
+    right: 0;
+    bottom: 40px;
+}
+
+.White_PoemsLink_Title_active {
+    color: black;
+}
+
+.White_PoemsLink_Title_active {
+    color: black;
+}
+
+.White_PoemsFooter_Link {
+    text-align: right;
+    height: 48px;
+    display: block;
+    color: black;
+    text-decoration: none;
+
+    position: relative;
+    left: 120%;
+}
+
+.White_PoemsFooter_Link:hover {
+    cursor: pointer;
+    color: #A12525;
+    text-shadow: 0 0 20px #A12525, 0 0 20px #A12525;
+}

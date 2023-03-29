@@ -5,27 +5,25 @@ const Album = ({album, images, bgImages}) => {
         <div className="Album">
             <div className={"PoemsPage_BackgroundImagesContainer"}>
                 {
-                    bgImages?.map(img => img)
+                    bgImages?.map((img, index) => <div key={index}>{img}</div>)
                 }
             </div>
             <div className={"PoemsContainer"}>
                 {
-                    album.poems.map((poem, index) => {
-                        return (
-                            <>
+                    album.poems.map((poem, index) =>
+                            <div key={index}>
                                 <div id={index + 1} className={"Poem"}>
-                                    <h3 className={"PoemTitle"}>{poem.title.split('<br/>').map((str) => <div>{str}</div>)}</h3>
+                                    <h3 className={"PoemTitle"}>{poem.title.split('<br/>').map((str, index) => <div key={index}>{str}</div>)}</h3>
                                     <div className={"PoemText"}>{
-                                        poem.text.split('<br/>').map((str) => <div>{str}</div>)
+                                        poem.text.split('<br/>').map((str, index) => <div key={index}>{str}</div>)
                                     }
                                     </div>
                                 </div>
                                 {
                                     images?.filter(img => img.after === index + 1).map(img => img.element)
                                 }
-                            </>
-                        )
-                    })
+                            </div>
+                    )
                 }
             </div>
         </div>

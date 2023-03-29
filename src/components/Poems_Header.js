@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import torrentFile from '../download/experimental_hip_hop_dobbro_Дискография_6_альбомов_2012_2020,_MP3.torrent';
 import {Link} from "react-router-dom";
 
-function Poems_Header({title}) {
+function Poems_Header({title, theme}) {
     document.title = title;
     const [isOpened, setIsOpened] = useState(false);
     const refLinkTop = useRef();

@@ -1,87 +1,43 @@
-import React from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 function Izbegai() {
-    let isMouseOver = false;
-    let currentOpacity = 0;
-    let text = true;
-    let animationInterval;
+    const [label, setLabel] = useState(false);
+    const [isMouseOver, setIsMouseOver] = useState(false);
+    const refStart = useRef();
+    const refEnd = useRef();
+    const [changeTimeout, setChangeTimeout] = useState(null);
 
-    function ShowText() {
-        if(!isMouseOver) {
-            clearInterval(animationInterval);
-            isMouseOver = true;
-            if(text) {
-                animationInterval = setInterval(() => {
-                    const element = document.getElementById('Izbegai_Random_Text_1');
-                    const element2 = document.getElementById('Izbegai_Random_Text_22');
-                    currentOpacity += 4;
-                    element.style.opacity = currentOpacity/100;
-                    element2.style.opacity = currentOpacity/100;
-                    if(currentOpacity >= 100) {
-                        currentOpacity = 100;
-                        clearInterval(animationInterval);
-                    }
-                }, 30)
-            } else {
-                animationInterval = setInterval(() => {
-                    const element = document.getElementById('Izbegai_Random_Text_2');
-                    const element2 = document.getElementById('Izbegai_Random_Text_11');
-                    currentOpacity += 4;
-                    element.style.opacity = currentOpacity/100;
-                    element2.style.opacity = currentOpacity/100;
-                    if(currentOpacity >= 100) {
-                        currentOpacity = 100;
-                        clearInterval(animationInterval);
-                    }
-                }, 30)
-            }
+    useEffect(() => {
+        if (isMouseOver) {
+            clearTimeout(changeTimeout);
+            refStart.current.classList.add("Izbegai_Text_show")
+            refEnd.current.classList.add("Izbegai_Text_show")
+        } else {
+            refStart.current.classList.remove("Izbegai_Text_show")
+            refEnd.current.classList.remove("Izbegai_Text_show")
+            setChangeTimeout(setTimeout(() => {
+                setLabel(!label);
+            }, 1000))
         }
-    }
-
-    function HideText() {
-        if(isMouseOver) {
-            clearInterval(animationInterval);
-            isMouseOver = false;
-            if(text) {
-                animationInterval = setInterval(() => {
-                    const element = document.getElementById('Izbegai_Random_Text_1');
-                    const element2 = document.getElementById('Izbegai_Random_Text_22');
-                    currentOpacity -= 4;
-                    element.style.opacity = currentOpacity/100;
-                    element2.style.opacity = currentOpacity/100;
-                    if(currentOpacity <= 0) {
-                        currentOpacity = 0;
-                        text = false;
-                        clearInterval(animationInterval);
-                    }
-                }, 40)
-            } else {
-                animationInterval = setInterval(() => {
-                    const element = document.getElementById('Izbegai_Random_Text_2');
-                    const element2 = document.getElementById('Izbegai_Random_Text_11');
-                    currentOpacity -= 4;
-                    element.style.opacity = currentOpacity/100;
-                    element2.style.opacity = currentOpacity/100;
-                    if(currentOpacity <= 0) {
-                        currentOpacity = 0;
-                        text = true;
-                        clearInterval(animationInterval);
-                    }
-                }, 40)
-            }
-        }
-    }
+    }, [isMouseOver])
 
     return (
         <div>
             <div className={"Izbegai_TextContainer"}>
-                    <div id={"Izbegai_Random_Text_1"} className={"Izbegai_Random_Text_Right"}>славы</div>
-                    <div id={"Izbegai_Random_Text_11"} className={"Izbegai_Random_Text_Left"}>совершая зло</div>
-                    <div id={"Izbegai_Random_Text_2"} className={"Izbegai_Random_Text_Right"}>наказания</div>
-                    <div id={"Izbegai_Random_Text_22"} className={"Izbegai_Random_Text_Left"}>совершая добро</div>
+                    <span ref={refStart}
+                          className={"Izbegai_Text_Left"}
+                          style={{
+                              left: label ? '450px' : '516px'
+                          }}
+                    >{label ? 'совершая добро  ' : 'совершая зло  '}
+                    </span><span
+                className={"Izbegai_RedText"} onMouseOver={() => setIsMouseOver(true)}
+                onMouseLeave={() => setIsMouseOver(false)}>избегай</span><span ref={refEnd}
+                                                                               className={"Izbegai_Text_Right"}
+                                                                               style={{
+                                                                                   left: '1054px'
+                                                                               }}>{label ? '  славы' : '  наказания'}</span>
             </div>
-
-            <div className={"Izbegai_ReadText"} onMouseOver={() => ShowText()} onMouseLeave={() => HideText()}>избегай</div>
         </div>
     );
 }

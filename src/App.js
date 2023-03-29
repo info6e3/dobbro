@@ -2,7 +2,7 @@ import React from 'react';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 
 import ContentPage from './pages/content/ContentPage';
-import StartPage from "./pages/start/Start";
+import StartPage from "./pages/Start";
 import Contacts from "./pages/contacts/Contacts";
 
 import albums from "./structure/albums.json";
@@ -43,9 +43,10 @@ function App() {
                     <Route exact path={"/"} element={<StartPage/>}/>
                     <Route exact path={"/content"} element={<ContentPage/>}/>
                     <Route exact path={"/about"} element={<Contacts/>}/>
-                    <Route exact path={albums[0].ref} element={
+                    <Route exact path={albums["1661"].ref} element={
                         <AlbumPage
-                            albumIndex={0}
+                            album={"1661"}
+                            next={"эстетика дрожащих изображений"}
                             images={[
                                 {
                                     after: 2,
@@ -66,9 +67,11 @@ function App() {
                                          src={Image_1661_3}/>,
                                 ]}/>
                     }/>
-                    <Route exact path={albums[1].ref} element={
+                    <Route exact path={albums["эстетика дрожащих изображений"].ref} element={
                         <AlbumPage
-                            albumIndex={1}
+                            album={"эстетика дрожащих изображений"}
+                            prev={"1661"}
+                            next={"подвешенный прыжок"}
                             images={[
                                 {
                                     after: 3,
@@ -92,12 +95,19 @@ function App() {
                                 ]
                             }/>
                     }/>
-                    <Route exact path={albums[2].ref} element={
-                        <AlbumPage albumIndex={2}/>
-                    }/>
-                    <Route exact path={albums[3].ref} element={
+                    <Route exact path={albums["подвешенный прыжок"].ref} element={
                         <AlbumPage
-                            albumIndex={3}
+                            album={"подвешенный прыжок"}
+                            prev={"эстетика дрожащих изображений"}
+                            next={"с николаем совсем плохо"}
+                        />
+                    }/>
+                    <Route exact path={albums["с николаем совсем плохо"].ref} element={
+                        <AlbumPage
+                            theme={"white"}
+                            album={"с николаем совсем плохо"}
+                            prev={"подвешенный прыжок"}
+                            next={"космохачкала"}
                             bgImages={
                                 [
                                     <img className={"PoemsPage_BackgroundImages"}
@@ -105,11 +115,14 @@ function App() {
                                     <img className={"PoemsPage_BackgroundImages"}
                                          id={"PoemsPage_Nikolai_Image_2"} src={Image_nikolai_2}/>
                                 ]
-                            }/>
+                            }
+                        />
                     }/>
-                    <Route exact path={albums[4].ref} element={
+                    <Route exact path={albums["космохачкала"].ref} element={
                         <AlbumPage
-                            albumIndex={4}
+                            album={"космохачкала"}
+                            prev={"с николаем совсем плохо"}
+                            next={"низ неба"}
                             images={[
                                 {
                                     after: 3,
@@ -129,12 +142,18 @@ function App() {
                                 ]
                             }/>
                     }/>
-                    <Route exact path={albums[5].ref} element={
-                        <AlbumPage albumIndex={5}/>
-                    }/>
-                    <Route exact path={albums[6].ref} element={
+                    <Route exact path={albums["низ неба"].ref} element={
                         <AlbumPage
-                            albumIndex={6}
+                            album={"низ неба"}
+                            prev={"космохачкала"}
+                            next={"arcticameet"}
+                        />
+                    }/>
+                    <Route exact path={albums["arcticameet"].ref} element={
+                        <AlbumPage
+                            album={"arcticameet"}
+                            prev={"низ неба"}
+                            next={"конец игры"}
                             images={[
                                 {
                                     after: 2,
@@ -156,9 +175,11 @@ function App() {
                                 ]
                             }/>
                     }/>
-                    <Route exact path={albums[7].ref} element={
+                    <Route exact path={albums["конец игры"].ref} element={
                         <AlbumPage
-                            albumIndex={7}
+                            album={"конец игры"}
+                            prev={"arcticameet"}
+                            next={"наркофобія"}
                             images={[
                                 {
                                     after: 4,
@@ -178,9 +199,10 @@ function App() {
                                 ]
                             }/>
                     }/>
-                    <Route exact path={albums[8].ref} element={
+                    <Route exact path={albums["наркофобія"].ref} element={
                         <AlbumPage
-                            albumIndex={8}
+                            album={"наркофобія"}
+                            prev={"конец игры"}
                             images={[
                                 {
                                     after: 2,

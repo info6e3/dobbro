@@ -1,4 +1,4 @@
-import React, {useEffect } from 'react';
+import React, {useEffect} from 'react';
 import Image_1 from '../../images/content/1.png';
 import Image_2 from '../../images/content/2.png';
 import Image_3 from '../../images/content/3.png';
@@ -19,7 +19,7 @@ function ContentPage() {
     let imageAnimationState = [false, false, false, false];
 
     useEffect(() => {
-        window.onscroll = function() {
+        window.onscroll = function () {
             const image2 = document.querySelector('#ContentPage_Image_2');
             const image3 = document.querySelector('#ContentPage_Image_3');
             const image4 = document.querySelector('#ContentPage_Image_4');
@@ -33,54 +33,48 @@ function ContentPage() {
     });
 
     function ImageAnimationControl(image, state, index) {
-        const centerY = window.innerHeight/2;
-
-        const startY = window.innerHeight * 7/8;
-        const endY = window.innerHeight * 1/8;
-
+        const startY = window.innerHeight * 7 / 8;
+        const endY = window.innerHeight * 1 / 8;
 
 
         const imageTop = image.getBoundingClientRect().y;
-        const imageCenter = image.getBoundingClientRect().y + image.height/2;
         const imageBot = image.getBoundingClientRect().y + image.height;
 
 
-        if(state) {
-            image.style.top = topsElements[index] + (window.pageYOffset+window.innerHeight - topsElements[index])/4 + 'px';
+        if (state) {
+            image.style.top = topsElements[index] + (window.pageYOffset + window.innerHeight - topsElements[index]) / 4 + 'px';
             // image.style.transform = `translate(0, ${(window.pageYOffset+window.innerHeight - topsElements[index])/5}px)`;
         }
 
 
-        if(!imageAnimationState[index]) {
-            //console.log('image', imageTop, imageBot)
-            //console.log('pos', startY, endY)
-            if(imageTop <= startY && imageBot >= startY && !state) { // появление снизу при скролле вниз
+        if (!imageAnimationState[index]) {
+            if (imageTop <= startY && imageBot >= startY && !state) { // появление снизу при скролле вниз
                 imageAnimationState[index] = true;
                 //console.log('image showed');
                 image.classList.remove('ContentPage_Image_Hide')
                 image.classList.remove('ContentPage_Image_Hide2')
                 image.classList.add('ContentPage_Image_Show');
 
-                setTimeout(()=> {
+                setTimeout(() => {
                     imageAnimationState[index] = false;
                 }, 800);
                 return true;
             }
 
-            if(imageBot <= endY && state) { //исчезание вверх при скролле вниз
+            if (imageBot <= endY && state) { //исчезание вверх при скролле вниз
                 imageAnimationState[index] = true;
                 //console.log('image hide');
                 image.classList.remove('ContentPage_Image_Show')
                 image.classList.remove('ContentPage_Image_Show2')
                 image.classList.add('ContentPage_Image_Hide');
 
-                setTimeout(()=> {
+                setTimeout(() => {
                     imageAnimationState[index] = false;
                 }, 800);
                 return false;
             }
 
-            if(imageTop <= endY && imageBot >= endY && !state) { // появление сверху при скролле вверх
+            if (imageTop <= endY && imageBot >= endY && !state) { // появление сверху при скролле вверх
                 imageAnimationState[index] = true;
                 //console.log('image showed');
                 image.classList.remove('ContentPage_Image_Hide')
@@ -88,13 +82,13 @@ function ContentPage() {
                 image.classList.add('ContentPage_Image_Show2');
 
                 //
-                setTimeout(()=> {
+                setTimeout(() => {
                     imageAnimationState[index] = false;
                 }, 800);
                 return true;
             }
 
-            if(imageTop > startY && state) { //исчезание вниз при скролле вверх
+            if (imageTop > startY && state) { //исчезание вниз при скролле вверх
                 imageAnimationState[index] = true;
 
                 //console.log('image hide2');
@@ -102,24 +96,92 @@ function ContentPage() {
                 image.classList.remove('ContentPage_Image_Show2')
                 image.classList.add('ContentPage_Image_Hide2');
 
-                setTimeout(()=> {
+                setTimeout(() => {
                     imageAnimationState[index] = false;
                 }, 800);
                 return false;
             }
         }
 
-
         return state;
+    }
+
+    function Album(album, index, element) { //вставить element после poem с index
+        if (albums[album].poems.length === 1)
+            return (
+                <div className={"ContentPage_Section"}>
+                    <div className={"ContentPage_SingleSection"}>
+                        <div className={"ContentPage_Section_Poem"}><a href={`${albums[album].ref}#$1`}
+                                                                       className={"ContentPage_Section_Poem_Link"}>{albums[album].poems[0].title}</a>
+                        </div>
+                    </div>
+                </div>)
+        return (
+            <div className={"ContentPage_Section"}>
+                <div>
+                    <h2 className={"ContentPage_Section_Name"}><a href={`${albums[album].ref}`}
+                                                                  className={"ContentPage_Section_Poem_Link"}>{album}</a>
+                    </h2>
+                    {
+                        albums[album].poems.map((poem, i, arr) => {
+
+
+                                return i + 1 === index ?
+                                    <React.Fragment key={i}>
+                                        <div className={"ContentPage_Section_Poem"}><a
+                                            href={`${albums[album].ref}#${i + 1}`}
+                                            className={"ContentPage_Section_Poem_Link"}>{poem.title}</a></div>
+                                        element
+                                    </React.Fragment>
+                                    :
+                                    <React.Fragment key={i}>
+                                        <div className={"ContentPage_Section_Poem"}><a
+                                            href={`${albums[album].ref}#${i + 1}`}
+                                            className={"ContentPage_Section_Poem_Link"}>{poem.title}</a></div>
+                                    </React.Fragment>
+                            }
+                        )
+                    }
+                </div>
+            </div>
+        )
+    }
+
+    function Albums(albumTitle, id, element) { //вставить element после poem с index в альбоме albumTitle
+        return Object.keys(albums).map((title, index) => {
+            return (
+                albumTitle === title ?
+                    <React.Fragment key={index}>
+                        {
+                            Album(title, id, element)
+                        }
+                    </React.Fragment>
+
+                    :
+                    <React.Fragment key={index}>
+                        {
+                            Album(title)
+                        }
+                    </React.Fragment>
+            )
+        })
     }
 
     return (
         <div className="ContentPage">
             <div id={"ContentPage_ImagesContainer"}>
-                <div className={"ContentPage_Images_Container"} ><img id={"ContentPage_Image_2"} className={"ContentPage_Images"} src={Image_2}/></div>
-                <div className={"ContentPage_Images_Container"} ><img id={"ContentPage_Image_3"} className={"ContentPage_Images"} src={Image_3}/></div>
-                <div className={"ContentPage_Images_Container"} ><img id={"ContentPage_Image_4"} className={"ContentPage_Images"} src={Image_4}/></div>
-                <div className={"ContentPage_Images_Container"} ><img id={"ContentPage_Image_5"} className={"ContentPage_Images"} src={Image_5}/></div>
+                <div className={"ContentPage_Images_Container"}><img id={"ContentPage_Image_2"}
+                                                                     className={"ContentPage_Images"} src={Image_2}/>
+                </div>
+                <div className={"ContentPage_Images_Container"}><img id={"ContentPage_Image_3"}
+                                                                     className={"ContentPage_Images"} src={Image_3}/>
+                </div>
+                <div className={"ContentPage_Images_Container"}><img id={"ContentPage_Image_4"}
+                                                                     className={"ContentPage_Images"} src={Image_4}/>
+                </div>
+                <div className={"ContentPage_Images_Container"}><img id={"ContentPage_Image_5"}
+                                                                     className={"ContentPage_Images"} src={Image_5}/>
+                </div>
             </div>
             <div id={"ContentPage_Header"}>
                 <div id={"ContentPage_ImageAndHead"} style={{
@@ -133,102 +195,9 @@ function ContentPage() {
                     <a href={`${process.env.REACT_APP_URL}/about`} className={"ContentPage_Menu_Item"}>контакты</a>
                 </div>
             </div>
-            <div className={"ContentPage_Section"}>
-                <h2 className={"ContentPage_Section_Name"}><a href={`${albums[0].ref}`} className={"ContentPage_Section_Poem_Link"}>{albums[0].title}</a></h2>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[0].ref}#1`} className={"ContentPage_Section_Poem_Link"}>клубки минут</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[0].ref}#2`} className={"ContentPage_Section_Poem_Link"}>лжеобычный спутник</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[0].ref}#3`} className={"ContentPage_Section_Poem_Link"}>бессмертны ровно до восьми пятнадцати</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[0].ref}#4`} className={"ContentPage_Section_Poem_Link"}>в пустоту на летней сцене</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[0].ref}#5`} className={"ContentPage_Section_Poem_Link"}>подмостки цирковой ямы</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[0].ref}#6`} className={"ContentPage_Section_Poem_Link"}>здания автомашины животные деревья</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[0].ref}#7`} className={"ContentPage_Section_Poem_Link"}>фагоциты в бетонном позвоночнике проспекта</a></div>
-                <Izbegai/>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[0].ref}#8`} className={"ContentPage_Section_Poem_Link"}>по адским кругам мчат</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[0].ref}#9`} className={"ContentPage_Section_Poem_Link"}>стылый воздух искрится</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[0].ref}#10`} className={"ContentPage_Section_Poem_Link"}>с 09.10.2011 года является запрещённым к использованию</a></div>
-            </div>
-            <div className={"ContentPage_Section"}>
-                <h2 className={"ContentPage_Section_Name"}><a href={`${albums[1].ref}`} className={"ContentPage_Section_Poem_Link"}>{albums[1].title}</a></h2>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[1].ref}#1`} className={"ContentPage_Section_Poem_Link"}>как минимум двое</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[1].ref}#2`} className={"ContentPage_Section_Poem_Link"}>привет поехавшим</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[1].ref}#3`} className={"ContentPage_Section_Poem_Link"}>сардиния</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[1].ref}#4`} className={"ContentPage_Section_Poem_Link"}>жёлтый подземный город</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[1].ref}#5`} className={"ContentPage_Section_Poem_Link"}>не умел</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[1].ref}#6`} className={"ContentPage_Section_Poem_Link"}>уткоистории</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[1].ref}#7`} className={"ContentPage_Section_Poem_Link"}>как зовут что употреблял</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[1].ref}#8`} className={"ContentPage_Section_Poem_Link"}>полутрупы</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[1].ref}#9`} className={"ContentPage_Section_Poem_Link"}>пора спать ложиться</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[1].ref}#10`} className={"ContentPage_Section_Poem_Link"}>существо заданных вопросов</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[1].ref}#11`} className={"ContentPage_Section_Poem_Link"}>добрые люди жрут злых</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[1].ref}#12`} className={"ContentPage_Section_Poem_Link"}>не скучай</a></div>
-            </div>
-            <div className={"ContentPage_SingleSection"}>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[2].ref}`} className={"ContentPage_Section_Poem_Link"}>подвешенный прыжок</a></div>
-            </div>
-            <div className={"ContentPage_Section"}>
-                <h2 className={"ContentPage_Section_Name"}><a href={`${albums[3].ref}`} className={"ContentPage_Section_Poem_Link"}>{albums[3].title}</a></h2>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[3].ref}#1`} className={"ContentPage_Section_Poem_Link"}>дкиуб</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[3].ref}#2`} className={"ContentPage_Section_Poem_Link"}>мобн</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[3].ref}#3`} className={"ContentPage_Section_Poem_Link"}>а были вот золотые времена</a></div>
-            </div>
-            <div className={"ContentPage_Section"}>
-                <h2 className={"ContentPage_Section_Name"}><a href={`${albums[4].ref}`} className={"ContentPage_Section_Poem_Link"}>{albums[4].title}</a></h2>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[4].ref}#1`} className={"ContentPage_Section_Poem_Link"}полицейский иегова></a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[4].ref}#2`} className={"ContentPage_Section_Poem_Link"}>слежу за тобой</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[4].ref}#3`} className={"ContentPage_Section_Poem_Link"}>двадцать три</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[4].ref}#4`} className={"ContentPage_Section_Poem_Link"}>карамультук ггкп</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[4].ref}#5`} className={"ContentPage_Section_Poem_Link"}>слишком громкий мертвец</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[4].ref}#6`} className={"ContentPage_Section_Poem_Link"}>бластер</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[4].ref}#7`} className={"ContentPage_Section_Poem_Link"}>смерть или што</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[4].ref}#8`} className={"ContentPage_Section_Poem_Link"}>сурхоб</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[4].ref}#9`} className={"ContentPage_Section_Poem_Link"}>стерега</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[4].ref}#10`} className={"ContentPage_Section_Poem_Link"}>жизнь это вещь</a></div>
-            </div>
-            <div className={"ContentPage_SingleSection"}>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[5].ref}`} className={"ContentPage_Section_Poem_Link"}>низ неба</a></div>
-            </div>
-            <div className={"ContentPage_Section"}>
-                <h2 className={"ContentPage_Section_Name"}><a href={`${albums[6].ref}`} className={"ContentPage_Section_Poem_Link"}>{albums[6].title}</a></h2>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[6].ref}#1`} className={"ContentPage_Section_Poem_Link"}>yalibliutebya</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[6].ref}#2`} className={"ContentPage_Section_Poem_Link"}>sadden7</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[6].ref}#3`} className={"ContentPage_Section_Poem_Link"}>molloko</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[6].ref}#4`} className={"ContentPage_Section_Poem_Link"}>anntidrum</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[6].ref}#5`} className={"ContentPage_Section_Poem_Link"}>helllord</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[6].ref}#6`} className={"ContentPage_Section_Poem_Link"}>burner 9spoiled0</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[6].ref}#7`} className={"ContentPage_Section_Poem_Link"}>spbbprivet</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[6].ref}#8`} className={"ContentPage_Section_Poem_Link"}>tone</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[6].ref}#9`} className={"ContentPage_Section_Poem_Link"}>starlings60k</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[6].ref}#10`} className={"ContentPage_Section_Poem_Link"}>suddenday skull</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[6].ref}#11`} className={"ContentPage_Section_Poem_Link"}>ahha whitey</a></div>
-            </div>
-            <div className={"ContentPage_Section"}>
-                <h2 className={"ContentPage_Section_Name"}><a href={`${albums[7].ref}`} className={"ContentPage_Section_Poem_Link"}>{albums[7].title}</a></h2>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[7].ref}#1`} className={"ContentPage_Section_Poem_Link"}>vollokna</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[7].ref}#2`} className={"ContentPage_Section_Poem_Link"}>buddta</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[7].ref}#3`} className={"ContentPage_Section_Poem_Link"}>beggal</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[7].ref}#4`} className={"ContentPage_Section_Poem_Link"}>workbro</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[7].ref}#5`} className={"ContentPage_Section_Poem_Link"}>uznull</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[7].ref}#6`} className={"ContentPage_Section_Poem_Link"}>pogonny</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[7].ref}#7`} className={"ContentPage_Section_Poem_Link"}>merttva</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[7].ref}#8`} className={"ContentPage_Section_Poem_Link"}>tishomertv</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[7].ref}#9`} className={"ContentPage_Section_Poem_Link"}>nuvvse</a></div>
-            </div>
-            <div className={"ContentPage_Section"}>
-                <h2 className={"ContentPage_Section_Name"}><a href={`${albums[8].ref}`} className={"ContentPage_Section_Poem_Link"}>{albums[8].title}</a></h2>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[8].ref}#1`} className={"ContentPage_Section_Poem_Link"}>vnutri sebbya</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[8].ref}#2`} className={"ContentPage_Section_Poem_Link"}>preddostorozhnost</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[8].ref}#3`} className={"ContentPage_Section_Poem_Link"}>nevvsegda</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[8].ref}#4`} className={"ContentPage_Section_Poem_Link"}>mozhe dopommogty</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[8].ref}#5`} className={"ContentPage_Section_Poem_Link"}>izbezhat raspadda</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[8].ref}#6`} className={"ContentPage_Section_Poem_Link"}>pottomu</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[8].ref}#7`} className={"ContentPage_Section_Poem_Link"}>naddvoih</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[8].ref}#8`} className={"ContentPage_Section_Poem_Link"}>bbegi</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[8].ref}#9`} className={"ContentPage_Section_Poem_Link"}>yaknayshshvidshe</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[8].ref}#10`} className={"ContentPage_Section_Poem_Link"}>otsyudda</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[8].ref}#11`} className={"ContentPage_Section_Poem_Link"}>essli</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[8].ref}#12`} className={"ContentPage_Section_Poem_Link"}>smozhzhesh</a></div>
-                <div className={"ContentPage_Section_Poem"}><a href={`${albums[8].ref}#13`} className={"ContentPage_Section_Poem_Link"}>usppet</a></div>
-            </div>
+            {
+                Albums("1661", 7, <Izbegai/>)
+            }
             <div id={"ContentPage_Footer"}></div>
         </div>
     );

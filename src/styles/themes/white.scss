@@ -1,0 +1,31 @@
+.white {
+  background: white !important;
+  color: black !important;
+
+  .PoemsHeaderTitle_Link {
+    color: black !important;
+  }
+
+  .PoemsHeaderMenu_Line {
+    background: black !important;
+  }
+
+  .PoemsHeader_GradientPanel {
+    background: -moz-linear-gradient(right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%) !important;
+    background: -webkit-linear-gradient(right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%) !important;
+    background: linear-gradient(to left, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0D0D0D;', endColorstr='#0D0D0D', GradientType=0) !important;
+  }
+
+  .PoemsHeader_Link {
+    color: black !important;
+  }
+
+  .PoemsBackLink {
+    color: black !important;
+  }
+
+  .PoemsForwardLink {
+    color: black !important;
+  }
+}

@@ -1,13 +1,15 @@
 import React from "react";
 import Image_ArrowBack from "../images/interface/ArrowBack_active.png";
 import Image_ArrowForward from "../images/interface/ArrowForward_active.png";
+import Image_BlackArrowBack from "../images/interface/BlackArrowBack.png";
+import Image_BlackArrowForward from "../images/interface/BlackArrowForward_active.png";
+
 import {Link} from "react-router-dom";
 
 import Image_NiznebaLink from "../images/links/nizneba.png";
 import Image_PrizhokLink from "../images/links/prizhok.png";
 
-function Poems_Links({next, prev}) {
-
+function Poems_Links({next, prev, theme}) {
     window.onkeydown = function (e) {
         if (e.keyCode === 37) {
             if (prev) {
@@ -42,13 +44,13 @@ function Poems_Links({next, prev}) {
             {
                 prev ? <a href={prev.ref} className={"PoemsBackLink"}>
                     <div id={"PoemsBackLink_Title"}>{linkTitle(prev)}</div>
-                    <img id={"Image_ArrowBack"} src={Image_ArrowBack}/>
+                    <img id={"Image_ArrowBack"} src={theme === "white" ? Image_BlackArrowBack : Image_ArrowBack}/>
                 </a> : null
             }
             {
                 next ? <a href={next.ref} className={"PoemsForwardLink"}>
                     <div id={"PoemsForwardLink_Title"}>{linkTitle(next)}</div>
-                    <img id={"Image_ArrowForward"} src={Image_ArrowForward}/>
+                    <img id={"Image_ArrowForward"} src={theme === "white" ? Image_BlackArrowForward : Image_ArrowForward}/>
                 </a> : null
             }
         </div>

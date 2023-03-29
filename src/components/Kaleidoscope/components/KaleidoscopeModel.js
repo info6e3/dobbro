@@ -4,7 +4,6 @@ class KaleidoscopeModel {
         this.context = context;
         this.image = image;
         this.count = count;
-
         this.Init();
     }
 

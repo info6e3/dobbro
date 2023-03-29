@@ -1,30 +1,35 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Poems_Header from "../components/Poems_Header";
 import albums from "../structure/albums.json";
 import Poems_Links from "../components/Poems_Links";
 import Album from "./Album";
 
-const AlbumPage = ({albumIndex, images, bgImages}) => {
+const AlbumPage = ({album, next, prev, images, bgImages, theme}) => {
+
+    if(theme) document.querySelector('body').classList.add(theme)
+
     return (
         <div className={"PoemsPage"}>
-            <Poems_Header title={albums[albumIndex].title}/>
+            <Poems_Header title={album}/>
             <Poems_Links
+                theme={theme}
                 prev={
-                    albums[albumIndex - 1] ? {
-                        title: albums[albumIndex - 1].title,
-                        ref: albums[albumIndex - 1].ref
+                    prev ? {
+                        title: prev,
+                        ref: albums[prev].ref
                     } : null
                 }
                 next={
-                    albums[albumIndex + 1] ? {
-                        title: albums[albumIndex + 1].title,
-                        ref: albums[albumIndex + 1].ref
+                    next ? {
+                        title: next,
+                        ref: albums[next].ref
                     } : null
                 }
             />
-            <Album album={albums[albumIndex]}
-                   images={images}
-                   bgImages={bgImages}/>
+            <Album
+                album={albums[album]}
+                images={images}
+                bgImages={bgImages}/>
         </div>
     );
 };

@@ -3,10 +3,10 @@ import imageURL from './images/1.jpg';
 
 import KaleidoscopeModel from "./components/KaleidoscopeModel";
 
-const Kaleidoscope = ({count}) => {
+const Kaleidoscope = ({count, size}) => {
     const canvasRef = useRef(null);
     const [imageSize, setImageSize] = useState(0);
-    let canvasSize = 850;
+    let canvasSize = size;
     const img = new Image();
 
     let kaleidoscope;
@@ -56,7 +56,7 @@ const Kaleidoscope = ({count}) => {
 
 
         const offsetImageX = 0; //Начальное смещение картинки X (Ширина картинки - грань/2)
-        const offsetImageY = -canvasSize; //Начальное смещение картинки y (Высота картинки/2)
+        const offsetImageY = -canvasSize/2; //Начальное смещение картинки y (Высота картинки/2)
         //
         const offsetX = imageX / imageSize * (imageSize - imageFacet), //координаты по размеру области перемещения X - грань многоугольника ширины картинки
             offsetY = imageY / imageSize * imageSize / 2; //Y - Высота картинки/2

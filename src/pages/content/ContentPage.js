@@ -123,15 +123,12 @@ function ContentPage() {
                                                                   className={"ContentPage_Section_Poem_Link"}>{album}</a>
                     </h2>
                     {
-                        albums[album].poems.map((poem, i, arr) => {
-
-
+                        albums[album].poems.map((poem, i) => {
                                 return i + 1 === index ?
                                     <React.Fragment key={i}>
                                         <div className={"ContentPage_Section_Poem"}><a
                                             href={`${albums[album].ref}#${i + 1}`}
                                             className={"ContentPage_Section_Poem_Link"}>{poem.title}</a></div>
-                                        element
                                     </React.Fragment>
                                     :
                                     <React.Fragment key={i}>

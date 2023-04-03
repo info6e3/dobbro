@@ -8,6 +8,12 @@ const AlbumPage = ({album, next, prev, images, bgImages, theme}) => {
 
     if(theme) document.querySelector('body').classList.add(theme)
 
+    useEffect(() => {
+        return () => {
+            if(theme) document.querySelector('body').classList.remove(theme)
+        }
+    }, [])
+
     return (
         <div className={"PoemsPage"}>
             <Poems_Header title={album}/>

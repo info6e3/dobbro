@@ -7,6 +7,7 @@ import Image_5 from '../../images/content/5.png';
 import albums from "../../structure/albums.json";
 import Izbegai from "./Izbegai";
 import torrentFile from "../../download/experimental_hip_hop_dobbro_Дискография_6_альбомов_2012_2020,_MP3.torrent";
+import {Link} from "react-router-dom";
 
 function ContentPage() {
     let image2showed = false;
@@ -187,9 +188,9 @@ function ContentPage() {
                     <h1 id={"ContentPage_HeadText"}>dobbro</h1>
                 </div>
                 <div id={"ContentPage_Menu"}>
-                    <a className={"ContentPage_Menu_ThisItem"}>оглавление</a>
+                    <div className={"ContentPage_Menu_ThisItem"}>оглавление</div>
                     <a href={torrentFile} className={"ContentPage_Menu_Item"}>скачать</a>
-                    <a href={`${process.env.REACT_APP_URL}/about`} className={"ContentPage_Menu_Item"}>контакты</a>
+                    <Link to={'/about'} className={"ContentPage_Menu_Item"}>контакты</Link>
                 </div>
             </div>
             {

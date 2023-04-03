@@ -42,16 +42,16 @@ function Poems_Links({next, prev, theme}) {
     return (
         <div className={"PoemsLinksContainer unselectable"}>
             {
-                prev ? <a href={prev.ref} className={"PoemsBackLink"}>
+                prev ? <Link to={prev.ref} className={"PoemsBackLink"}>
                     <div id={"PoemsBackLink_Title"}>{linkTitle(prev)}</div>
                     <img id={"Image_ArrowBack"} src={theme === "white" ? Image_BlackArrowBack : Image_ArrowBack}/>
-                </a> : null
+                </Link> : null
             }
             {
-                next ? <a href={next.ref} className={"PoemsForwardLink"}>
+                next ? <Link to={next.ref} className={"PoemsForwardLink"}>
                     <div id={"PoemsForwardLink_Title"}>{linkTitle(next)}</div>
                     <img id={"Image_ArrowForward"} src={theme === "white" ? Image_BlackArrowForward : Image_ArrowForward}/>
-                </a> : null
+                </Link> : null
             }
         </div>
     );

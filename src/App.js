@@ -34,17 +34,24 @@ import Image_narkofobia_2 from "./images/albums/narkofobia/2.png";
 import Image_narkofobia_3 from "./images/albums/narkofobia/3.png";
 import Image_narkofobia_4 from "./images/albums/narkofobia/4.png";
 import Image_narkofobia_5 from "./images/albums/narkofobia/5.png";
+import Teeth from "./components/Teeth";
 
 function App() {
     return (
         <div className="App">
             <Router>
                 <Routes>
-                    <Route exact path={"/"} element={<StartPage/>}/>
+                    <Route exact path={"/"} element={
+                        function () {
+                            return window.innerWidth < 1512 ? <StartPage/> : <ContentPage/>
+                        }()
+                    }/>
                     <Route exact path={"/content"} element={<ContentPage/>}/>
                     <Route exact path={"/about"} element={<Contacts/>}/>
                     <Route exact path={albums["1661"].ref} element={
                         <AlbumPage
+                            id={7}
+                            element={<Teeth/>}
                             album={"1661"}
                             next={"эстетика дрожащих изображений"}
                             images={[

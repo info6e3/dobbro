@@ -4,7 +4,7 @@ import albums from "../structure/albums.json";
 import Poems_Links from "../components/Poems_Links";
 import Album from "./Album";
 
-const AlbumPage = ({album, next, prev, images, bgImages, theme}) => {
+const AlbumPage = ({album, next, prev, images, bgImages, theme, id=null, element=null}) => {
 
     if(theme) document.querySelector('body').classList.add(theme)
 
@@ -33,6 +33,8 @@ const AlbumPage = ({album, next, prev, images, bgImages, theme}) => {
                 }
             />
             <Album
+                id={id}
+                element={element}
                 album={albums[album]}
                 images={images}
                 bgImages={bgImages}/>

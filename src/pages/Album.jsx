@@ -28,7 +28,7 @@ const Album = ({album, images, bgImages, id = null, element = null}) => {
                                             null
                                     }
                                     {
-                                        images?.filter(img => img.after === index + 1).map(img => img.element)
+                                        images?.filter(img => img.after === index + 1).map((img, i) => React.cloneElement(img.element, {key:i}))
                                     }
                                 </div>
                             )

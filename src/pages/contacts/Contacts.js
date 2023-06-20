@@ -16,7 +16,7 @@ function Contacts() {
                 </div>
             </div>
             <div className={"Contacts_LeftPanel"}>
-                <Link to={`${process.env.REACT_APP_BOOSTY}`} className={"Contacts_LeftPanel_Support"}><div className={"Support"}>поддержать</div><div className={"Boosty"}>{'{boosty}'}</div></Link>
+                <a href={`${process.env.REACT_APP_BOOSTY}`} className={"Contacts_LeftPanel_Support"}><div className={"Support"}>поддержать</div><div className={"Boosty"}>{'{boosty}'}</div></a>
 
                 <div className={"Contacts_LeftPanel_EmailTitle"}>email</div>
                 <div className={"Contacts_LeftPanel_Email"}>dob46bro@gmail.com</div>
@@ -26,9 +26,9 @@ function Contacts() {
             </div>
             <div id={"Contacts_Footer"}>
                 <div className={"Contacts_Footer_Contacts"}>
-                    <Link to={`${process.env.REACT_APP_YOUTUBE}`} className={"Contacts_ContactLink"}>youtube</Link>
-                    <Link to={`${process.env.REACT_APP_TELEGRAM}`} className={"Contacts_ContactLink"}>telegram</Link>
-                    <Link to={`${process.env.REACT_APP_VK}`} className={"Contacts_ContactLink"}>vk</Link>
+                    <a href={`${process.env.REACT_APP_YOUTUBE}`} className={"Contacts_ContactLink"}>youtube</a>
+                    <a href={`${process.env.REACT_APP_TELEGRAM}`} className={"Contacts_ContactLink"}>telegram</a>
+                    <a href={`${process.env.REACT_APP_VK}`} className={"Contacts_ContactLink"}>vk</a>
                 </div>
                 <div className={"Contacts_Label"}>dobbro</div>
                 <div className={"Contacts_Year"}>2022</div>

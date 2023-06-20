@@ -1,18 +1,19 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useLayoutEffect} from 'react';
 import Poems_Header from "../components/Poems_Header";
 import albums from "../structure/albums.json";
 import Poems_Links from "../components/Poems_Links";
-import Album from "./Album";
+import AlbumContent from "./AlbumContent";
 
 const AlbumPage = ({album, next, prev, images, bgImages, theme, id=null, element=null}) => {
 
-    if(theme) document.querySelector('body').classList.add(theme)
-
-    useEffect(() => {
-        return () => {
-            if(theme) document.querySelector('body').classList.remove(theme)
-        }
-    }, [])
+    console.log("mount")
+    if(theme) {
+        console.log("theme")
+        document.querySelector('body').classList.add(theme)
+    } else  {
+        console.log("no theme")
+        document.querySelector('body').classList = null
+    }
 
     return (
         <div className={"PoemsPage"}>
@@ -32,7 +33,7 @@ const AlbumPage = ({album, next, prev, images, bgImages, theme, id=null, element
                     } : null
                 }
             />
-            <Album
+            <AlbumContent
                 id={id}
                 element={element}
                 album={albums[album]}

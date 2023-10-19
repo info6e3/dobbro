@@ -1,12 +1,12 @@
 import React from 'react';
-import Kaleidoscope from "../components/Kaleidoscope/Kaleidoscope";
+import KaleidoscopeInteractive from "../components/Kaleidoscope/KaleidoscopeInteractive";
 
 function StartPage() {
     document.querySelector('body').style.overflow = 'hidden';
 
     return (
         <div className={"StartPage"}>
-            <Kaleidoscope  count={20} size={1000}/>
+            <KaleidoscopeInteractive  count={14} size={1000}/>
             <div className={"StartButton"}><a className={"StartLink"} href={'/content'}>dobbro<br/><div className={"Bold"}>стихи</div></a></div>
         </div>
     );
